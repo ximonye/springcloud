@@ -1,0 +1,58 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: consumer-movie-ribbon
+  cloud:
+    # Spring Cloud Stream配置
+    stream:
+      # 当前消费者的总实例数量(消息分区需要设置)
+      instance-count: 2
+      # 当前实例的索引号(消息分区需要设置，最大为instance-count - 1)
+      instance-index: 0
+      bindings:
+        # input为定义的通道名称
+        input:
+          # 通道数据传输类型
+          # content-type: text/plain # application/json
+          # 将此实例的某个Stream(input)定义为某个消费组(同一个消费组里面的实例只有其中一个对消息进行消费, 否则所有的实例都会消费, 建议定义)
+          group: group-movie
+          # 应用中的监听的input通道对应中间件的主题(rabbitmq的Exchange, kafka的Topic)为xxx(默认是通道名称, 此时即input)
+          # destination: xxx
+          # consumer:
+            # 开启消费者分区功能
+            # partitioned: true
+        channel1_input:
+          # group: group-movie # 定义后会和input通道间隔消费input主题消息
+          destination: input
+        poller_input:
+          destination: poller_output
+        poller_output:
+          destination: poller_output
+        channel2_input:
+          destination: channel1_output
+        channel2_output:
+          destination: channel1_input
+
+# robbin负载均衡策略优先级：配置文件策略 > 代码级别策略 > ribbon默认策略(com.netflix.loadbalancer.ZoneAvoidanceRule)
+provider-user:
+  ribbon:
+      # 当访问服务provider-user时采用随机策略RandomRule，此时访问其他服务时仍然为默认策略ZoneAvoidanceRule；WeightedResponseTimeRule响应时间加权策略
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# 开启feign对hystrix的支持，默认是false
+feign:
+  hystrix:
+    enabled: true
+
+# 测试从Spring Cloud Config配置中心读取配置数据
+from: application.yml
+
+# 为了动态刷新配置(spring cloud config)，执行/refresh端点(此端点需要加入Spring Security或者关闭端点验证)
+security:
+  basic:
+    enabled: true
+  user:
+    name: smalle
+    password: smalle

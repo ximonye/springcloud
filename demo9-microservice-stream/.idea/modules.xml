@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/api-gateway-zuul/api-gateway-zuul.iml" filepath="$PROJECT_DIR$/api-gateway-zuul/api-gateway-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-rabbitmq/bus-rabbitmq.iml" filepath="$PROJECT_DIR$/springboot-rabbitmq/bus-rabbitmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/consumer-movie-ribbon/consumer-movie-ribbon.iml" filepath="$PROJECT_DIR$/consumer-movie-ribbon/consumer-movie-ribbon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mircoservice-demo.iml" filepath="$PROJECT_DIR$/mircoservice-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provider-user/provider-user.iml" filepath="$PROJECT_DIR$/provider-user/provider-user.iml" />
+    </modules>
+  </component>
+</project>

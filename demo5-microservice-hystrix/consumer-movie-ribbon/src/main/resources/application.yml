@@ -1,0 +1,27 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: consumer-movie-ribbon
+
+# eureka客户端配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://smalle:smalle@localhost:8761/eureka/
+  instance:
+    # 启用ip访问
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+# robbin负载均衡策略优先级：配置文件策略 > 代码级别策略 > ribbon默认策略(com.netflix.loadbalancer.ZoneAvoidanceRule)
+provider-user:
+  ribbon:
+      # 当访问服务provider-user时采用随机策略RandomRule，此时访问其他服务时仍然为默认策略ZoneAvoidanceRule；WeightedResponseTimeRule响应时间加权策略
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# 开启feign对hystrix的支持，默认是false
+feign:
+  hystrix:
+    enabled: true

@@ -1,0 +1,28 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: consumer-movie-ribbon
+
+# robbin负载均衡策略优先级：配置文件策略 > 代码级别策略 > ribbon默认策略(com.netflix.loadbalancer.ZoneAvoidanceRule)
+provider-user:
+  ribbon:
+      # 当访问服务provider-user时采用随机策略RandomRule，此时访问其他服务时仍然为默认策略ZoneAvoidanceRule；WeightedResponseTimeRule响应时间加权策略
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# 开启feign对hystrix的支持，默认是false
+feign:
+  hystrix:
+    enabled: true
+
+# 测试从Spring Cloud Config配置中心读取配置数据
+from: application.yml
+
+# 为了动态刷新配置(spring cloud config)，执行/refresh端点(此端点需要加入Spring Security或者关闭端点验证)
+security:
+  basic:
+    enabled: true
+  user:
+    name: smalle
+    password: smalle

@@ -1,0 +1,50 @@
+server:
+  port: 8000
+
+spring:
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    platform: h2
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+#  cloud:
+#    stream:
+#      bindings:
+#        input:
+#          producer:
+#            # 可根据实际消息规则配置SpEL表达式生成分区键用于分配出站数据, 用于消息分区
+#            partitionKeyExpression: payload
+#            # 分区数量
+#            partitionCount: 2
+  # zipkin:
+    # 不使用eureka时, 可通过base-url指定zipkin服务器地址. 使用eureka则不需要指定, 也不需要指定服务名称(通过创建sleuth主题的stream)
+    # base-url: http://localhost:9411/
+
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.itmuch: DEBUG
+
+# eureka客户端配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://smalle:smalle@localhost:8761/eureka/
+  instance:
+    # 启用ip访问
+    prefer-ip-address: true
+    # 实例id
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+endpoints:
+  env:
+    # env端点默认不公开，此时设置为可公开方法
+    sensitive: false

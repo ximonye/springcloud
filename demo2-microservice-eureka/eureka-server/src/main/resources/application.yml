@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+security:
+  basic:
+    enabled: true #开启eureka后台登录认证（如果导入了security的jar包，则默认是开启的，默认用户名user，并随机生成一个密码）
+  user:
+    name: smalle
+    password: smalle
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # eureka server默认也是一个eureka client.以下两行仅将此App当成eureka server，不当成eureka client(由于是单机测试)
+    register-with-eureka: false
+    fetch-registry: false
+    # 将eureka注册到哪个url
+    serviceUrl:
+      defaultZone: http://user:password@${eureka.instance.hostname}:${server.port}/eureka/
+

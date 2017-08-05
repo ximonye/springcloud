@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: api-gateway-zuul # 建议小写
+
+server:
+  port: 5555
+
+zuul:
+  # 忽略表达式。当遇到路径中有admin的不进行路由
+  # ignored-patterns: /**/admin/**
+  # 路由前缀
+  # prefix: /api
+  # zuul默认会过滤路由前缀(strip-prefix=true)，此处是关闭此过滤
+  # strip-prefix: false
+  routes:
+    # 通配符(ant规范)：? 代表一个任意字符，* 代表多个任意字符，** 代表多个任意字符且支持多级目录
+    # 此处路径在配置文件中越靠前的约优先（系统将所有路径放到LinkedHashMap中，当匹配到一个后就终止匹配）
+    # 现在可以同时访问http://localhost:5555/consumer-movie-ribbon/movie/1 和 http://localhost:5555/api-movie/movie/1
+    # api-movie为规则名, 可通过spring cloud config进行动态加载(覆盖)
+    api-movie:
+      path: /api-movie/**
+      # 从eureka中获取此服务(spring.application.name)的地址(面向服务的路由)
+      serviceId: consumer-movie-ribbon
+      # 如果consumer-movie-ribbon服务开启了权限验证，则需要防止zuul将头信息(Cookie/Set-Cookie/Authorization)过滤掉了.(多用于API网关下的权限验证等服务)
+      # 此方法是对指定规则开启自定义敏感头. 还有一中解决方法是设置路由敏感头为空(则不会过滤任何头信息)：zuul.routes.<route>.sensitiveHeaders=
+      customSensitiveHeaders: true
+    api-user:
+      path: /api-user/**
+      serviceId: provider-user
+    # 本地跳转(当访问/api-local/**的时候，则会转到当前应用的/local/**的地址)
+    # api-local:
+    #   path: /api-local/**
+    #   url: forward:/local
+  # 禁用过滤器：zuul.<FilterClassName>.<filterType>.disable=true
+  # AccessFilter:
+  #   pre:
+  #     disable: true
+
+# 为了动态刷新配置(spring cloud config)，执行/refresh端点(此端点需要加入Spring Security或者关闭端点验证)
+security:
+  basic:
+    enabled: true
+  user:
+    name: smalle
+    password: smalle

@@ -1,0 +1,32 @@
+server:
+  port: 9411
+
+spring:
+  application:
+    name: zipkin-server
+  datasource:
+    # 建表语句, 用来新建zipkin跟踪信息相关表(zipkin_spans、zipkin_annotations、zipkin_dependencies), 文件在Maven:io.zipkin.java:zipkin.storage.mysql目录下
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+    initialize: true
+    continue-on-error: true
+  # 不对此服务开启跟踪
+  sleuth:
+    enabled: false
+
+# 改变zipkin日志跟踪信息存储方式为mysql(测试也可不使用mysql存储)
+zipkin:
+  storage:
+    type: mysql
+
+# eureka客户端配置(使用了spring cloud config, 则eureka的配置必须写在bootstrap.yml中，否则报找不到config server )
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://smalle:smalle@localhost:8761/eureka/
+  instance:
+    # 启用ip访问
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}

@@ -1,0 +1,4 @@
+# logback-spring.xml比application.yml先加载
+spring:
+  application:
+    name: provider-user # 建议小写

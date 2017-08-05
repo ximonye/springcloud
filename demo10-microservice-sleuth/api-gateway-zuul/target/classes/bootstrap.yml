@@ -1,0 +1,27 @@
+# bootstrap.yml其优先级高于application.yml
+spring:
+  # application:
+  #  name: api-gateway-zuul
+  cloud:
+    config:
+      # config server地址
+      # uri: http://localhost:7000/
+      # 配置中心实行服务化(向eureka注册了自己)，此处要开启服务发现，并指明配置中心服务id
+      discovery:
+        enabled: true
+        service-id: config-server
+      profile: prod
+      label: master
+      # 如果配置中心开启了权限验证，此处填写相应的用户名和密码
+      username: smalle
+      password: smalle
+
+# eureka客户端配置(使用了spring cloud config, 则eureka的配置必须写在bootstrap.yml中，否则报找不到config server)
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://smalle:smalle@localhost:8761/eureka/
+  instance:
+    # 启用ip访问
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}

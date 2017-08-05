@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          # 可以使用占位符{application}、{profile}、{label}
+          uri: https://git.oschina.net/smalle/spring-cloud-config-test.git
+          # 搜索此git仓库的配置文件目录
+          search-paths: config-repo
+          username: git-username
+          password: git-password
+
+server:
+  port: 7000
+
+security:
+  basic:
+    enabled: true # 开启权限验证(默认是false)
+  user:
+    name: smalle
+    password: smalle
+
+# eureka客户端配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://smalle:smalle@localhost:8761/eureka/
+  instance:
+    # 启用ip访问
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+
+

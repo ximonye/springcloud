@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="H2 - mem:testdb" uuid="e8559d7c-1045-469a-a99c-b83621be4df8">
+      <database-info product="H2" version="1.4.192 (2016-05-26)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.192 (2016-05-26)">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>memory</secret-storage>
+      <user-name>sa</user-name>
+      <introspection-scope>TESTDB:public</introspection-scope>
+      <resolve-scope>TESTDB:public</resolve-scope>
+    </data-source>
+    <data-source name="MySQL - test@localhost" uuid="58283258-e127-468d-bfa5-72fa2587a77b">
+      <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-scope>test:</introspection-scope>
+      <resolve-scope>test:</resolve-scope>
+    </data-source>
+  </component>
+</project>
