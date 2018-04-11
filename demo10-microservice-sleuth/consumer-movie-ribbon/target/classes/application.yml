@@ -34,11 +34,9 @@ spring:
           destination: channel1_output
         channel2_output:
           destination: channel1_input
-#  zipkin:
-#    # base-url: http://localhost:9411/
-#    locator:
-#      discovery:
-#        enabled: true
+  # zipkin:
+    # 不使用eureka时, 可通过base-url指定zipkin服务器地址. 使用eureka则不需要指定, 也不需要指定服务名称(通过创建sleuth主题的stream)
+    # base-url: http://localhost:9411/
 
 # robbin负载均衡策略优先级：配置文件策略 > 代码级别策略 > ribbon默认策略(com.netflix.loadbalancer.ZoneAvoidanceRule)
 provider-user:

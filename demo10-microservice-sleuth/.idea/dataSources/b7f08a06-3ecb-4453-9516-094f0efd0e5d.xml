@@ -1,4 +1,4 @@
-<dataSource name="H2 - mem:testdb">
+<dataSource name="H2 - testdb">
   <database-model serializer="dbm" rdbms="H2" format-version="2.6">
     <database id="1" name="TESTDB">
       <visible>1</visible>

@@ -17,7 +17,10 @@ public class UserService {
     @HystrixCommand(fallbackMethod = "findByIdFallBack")
     public User findById(Long id) {
         // virtual ip: 服务的spring.application.name
-        return this.restTemplate.getForObject("http://provider-user/simple/" + id, User.class);
+        User user = this.restTemplate.getForObject("http://provider-user/simple/" + id, User.class);
+        System.out.println("user = " + user);
+
+        return user;
     }
 
     // 当服务调用失败或者超时则回调此函数. 此函数参数和返回值必须和调用函数一致

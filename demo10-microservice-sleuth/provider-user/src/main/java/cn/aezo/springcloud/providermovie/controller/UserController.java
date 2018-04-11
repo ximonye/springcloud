@@ -28,7 +28,7 @@ public class UserController {
     private String applicationName;
 
     @GetMapping(value = "/simple/{id}")
-    public User findByiD(@PathVariable Long id) throws InterruptedException {
+    public User findById(@PathVariable Long id) throws InterruptedException {
         // 随机睡眠0-2秒，测试hystrix
         long sleepTime = new Random().nextInt(2000);
         System.out.println("sleepTime = " + sleepTime);

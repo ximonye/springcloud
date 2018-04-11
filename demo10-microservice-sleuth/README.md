@@ -1,6 +1,7 @@
 ## Sleuth 分布式服务跟踪(Spring Cloud Sleuth)
 
-> 服务跟踪以consumer-movie-ribbon和provider-user为例（最好先启动eureka-server、config-server、zipkin-server）
+> 服务跟踪以consumer-movie-ribbon和provider-user为例。
+> 最好先启动eureka-server、config-server(需要启动rabbitmq)、zipkin-server(需要启动mysql)
 
 - 简介
     - 用来跟踪每个请求在全链路调用的过程，可快速发现每条链路上的性能瓶颈

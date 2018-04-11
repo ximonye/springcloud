@@ -9,6 +9,7 @@ spring:
       ddl-auto: none
   datasource:
     platform: h2
+    url: jdbc:h2:mem:testdb
     schema: classpath:schema.sql
     data: classpath:data.sql
 #  cloud:
@@ -20,11 +21,10 @@ spring:
 #            partitionKeyExpression: payload
 #            # 分区数量
 #            partitionCount: 2
-#  zipkin:
-#    # base-url: http://localhost:9411/
-#    locator:
-#      discovery:
-#        enabled: true
+  # zipkin:
+    # 不使用eureka时, 可通过base-url指定zipkin服务器地址. 使用eureka则不需要指定, 也不需要指定服务名称(通过创建sleuth主题的stream)
+    # base-url: http://localhost:9411/
+
 
 logging:
   level:
